@@ -1,0 +1,176 @@
+{% extends 'bootstrap/base.html' %}
+
+
+
+
+{% block title %}
+    {% if title %}{{ title }} - Basic Flask{% else %}Basic Flask{% endif %}
+{% endblock %}
+
+
+{% block navbar %}
+<head>
+<link rel="stylesheet" type="text/css" href="/static/css/greysand_navbar.css">
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<!-- London Time -->
+<script type="text/javascript">
+function GetClock(){
+var tzOffset = 0;//set this to the number of hours offset from UTC
+
+var d=new Date();
+var dx=d.toGMTString();
+dx=dx.substr(0,dx.length -3);
+d.setTime(Date.parse(dx))
+d.setHours(d.getHours()+tzOffset);
+var nhour=d.getHours(),nmin=d.getMinutes(),nsec=d.getSeconds(),ap;
+
+
+if(nhour==0){ap=" AM";nhour=12;}
+else if(nhour<12){ap=" AM";}
+else if(nhour==12){ap=" PM";}
+else if(nhour>12){ap=" PM";nhour-=12;}
+
+if(nmin<=9) nmin="0"+nmin;
+if(nsec<=9) nsec="0"+nsec;
+
+var clocktext=""+nhour+":"+nmin+":"+nsec+ap+" - London";
+var obj=document.querySelectorAll('.londonclock');
+for(var i in obj){
+    obj[i].innerHTML=clocktext;
+}
+}
+
+GetClock();
+setInterval(GetClock,1000);
+</script>
+
+
+<!-- LA Time -->
+<script type="text/javascript">
+function GetClock(){
+var tzOffset = -7;//set this to the number of hours offset from UTC
+
+var d=new Date();
+var dx=d.toGMTString();
+dx=dx.substr(0,dx.length -3);
+d.setTime(Date.parse(dx))
+d.setHours(d.getHours()+tzOffset);
+var nhour=d.getHours(),nmin=d.getMinutes(),nsec=d.getSeconds(),ap;
+
+if(nhour==0){ap=" AM";nhour=12;}
+else if(nhour<12){ap=" AM";}
+else if(nhour==12){ap=" PM";}
+else if(nhour>12){ap=" PM";nhour-=12;}
+
+if(nmin<=9) nmin="0"+nmin;
+if(nsec<=9) nsec="0"+nsec;
+
+var clocktext=""+nhour+":"+nmin+":"+nsec+ap+" - San Francisco";
+var obj=document.querySelectorAll('.sanfranclock');
+for(var i in obj){
+    obj[i].innerHTML=clocktext;
+}
+}
+
+GetClock();
+setInterval(GetClock,1000);
+</script>
+
+
+</head>
+    <nav class="navbar navbar-default fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ url_for('index') }}">Basic Flask</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+{% endblock %}
+
+{% block content %}
+
+
+<head>
+<link rel="stylesheet" type="text/css" href="/static/css/default.css">
+</head>
+
+<body>
+    <div class="row" 
+          style="background:transparent url('/static/img/cam_lite.png') no-repeat center center /cover">
+        
+<div class="container">
+    <div class="row row-height">
+      <div class="col-md-9 left">
+        {# application content needs to be provided in the app_content block #}
+        {% block app_content %}{% endblock %}
+      </div>
+
+
+      <div class="col-md-3 right">
+        
+        {# Here I can put other links in my right-hand column #}
+        
+
+
+      </div>
+        </form>
+    
+        <br><br><br>
+
+        <b>
+        <div class="londonclock"></div>
+        <br>
+        <div class="sanfranclock"></div>
+        </b>
+        
+
+
+
+
+        <br>
+
+        
+
+
+        This is my second Column
+        <br>
+        I could write about myself, such as blah blah blah blah blah blah blah
+        <br>
+        Or put a bunch of links and buttons
+        <br>
+        <br>
+        
+        <a href="{{ url_for ('index') }}"type="button" class="btn btn-primary" role="button">Home</a>
+       
+
+
+
+
+
+      </div>
+    </div>
+
+    
+
+    </div>
+
+</body>
+{% endblock %}
+
+
+
